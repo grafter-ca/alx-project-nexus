@@ -1,100 +1,98 @@
-import { Activity, Award, MoveRight, Shield, Star, Truck, Users } from "lucide-react";
+import {
+  Activity,
+  Award,
+  MoveRight,
+  Shield,
+  Star,
+  Truck,
+  Users,
+  Flame,
+  Sparkles
+} from "lucide-react";
 import React from "react";
 import Stats from "../common/Stats";
 import Image from "next/image";
+import Button from "../common/button/ButtonWithIconRight";
+import ButtonWithOutIcon from "../common/button/ButtonWithOutIcon";
 
 function Hero() {
   return (
-    <section className="gap-4 block lg:flex items-center">
-        <article className="w-full lg:w-[760px]">
-      <header className="mt-12">
-        <button className="flex items-center space-x-2 bg-green-700 hover:bg-green-600 animate-bounce py-2 px-4 rounded-full mb-3">
-          <Activity color="white" />
-          <span>New Collection Just Dropped</span>
-        </button>
-
-        <h1 className="text-7xl font-bold">
-          Premium Products That Transform Your 
-          <span className="text-green-400 animate-pulse">Everyday Life</span>
-        </h1>
-
-        <p className="font-medium text-xl my-6">
-          Join over 50,000+ satisfied customers who've discovered our handpicked
-          collection of innovative products. From cutting-edge tech to lifestyle
-          essentials - we bring you quality that exceeds expectations.
-        </p>
-
-        <div className="block lg:flex items-center justify-center pb-2 space-x-4 ">
-          <button className="flex  items-center space-x-2 bg-green-700 hover:bg-green-900 py-3 text-xl px-8 rounded-[8px] text-white">
-            <span>New Collection Just Dropped</span>
-            <MoveRight />
-          </button>
-          <button className="flex mt-4 lg:mt-0 items-center bg-white hover:bg-gray-300 border-2 border-gray-200 hover:border-gray-600 transition-border transition-300 ease-out py-3 text-xl px-8 rounded-[8px]">
+    <section className="flex flex-col lg:flex-row items-center gap-8 px-4 py-6 lg:px-16 mt-12">
+      {/* Left Content */}
+      <article className="w-full lg:w-[60%]">
+        <header>
+          <button className="flex items-center space-x-2 bg-green-700 hover:bg-green-600 animate-bounce py-2 px-4 rounded-full mb-6 text-white">
+            <Activity color="white" />
             <span>New Collection Just Dropped</span>
           </button>
-        </div>
-      </header>
-      <section className="flex justify-between my-12">
-      <article className="flex items-center space-x-3">
-        <div className="bg-gray-300 w-12 h-12 flex items-center justify-center rounded-[8px]">
-          <Star color="green" className="hover:animate-pulse cursor-pointer" size={40} />
+
+          <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold leading-tight">
+            Premium Products That Transform Your{" "}
+            <span className="text-green-400 animate-pulse">Everyday Life</span>
+          </h1>
+
+          <p className="font-medium text-base md:text-lg lg:text-xl my-6">
+            Join over 50,000+ satisfied customers who've discovered our
+            handpicked collection of innovative products. From cutting-edge tech
+            to lifestyle essentials — we bring you quality that exceeds
+            expectations.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start sm:items-center">
+            <Button label="Explore Collection" Icon={MoveRight} />
+            <ButtonWithOutIcon label="Browse by Category" />
+          </div>
+        </header>
+
+        <section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 my-12">
+          <Stats Icon={Star} stats="4.9/5 Stars" content="12,847 Reviews" />
+          <Stats Icon={Shield} stats="4.9/5 Stars" content="12,847 Reviews" />
+          <Stats Icon={Users} stats="4.9/5 Stars" content="12,847 Reviews" />
+          <Stats Icon={Truck} stats="4.9/5 Stars" content="12,847 Reviews" />
+        </section>
+
+        <section className="flex flex-col sm:flex-row justify-between mt-6 gap-4 sm:gap-0">
+          <div className="flex items-center space-x-4">
+            <Award
+              color="green"
+              className="hover:animate-pulse cursor-pointer"
+              size={28}
+            />
+            <p>Best E-commerce {new Date().getFullYear()}</p>
+          </div>
+          <p>Featured in TechCrunch, Forbes & Wired</p>
+        </section>
+      </article>
+
+      {/* Right Hero Image with Buttons */}
+      <section className="relative bg-green-100 flex items-center justify-center rounded-xl w-full sm:w-[400px] md:w-[450px] h-[400px] md:h-[500px] shadow-lg">
+        {/* Image container */}
+        <div className="shadow-md w-[80%] h-[60%] md:w-[350px] md:h-[300px] px-2 overflow-hidden rounded-lg">
+          <Image
+            src="/assets/images/modern-shopping-bags-and-products-hero-image.jpg"
+            alt="Hero image"
+            width={350}
+            height={300}
+            className="w-full h-full object-cover"
+          />
         </div>
 
-        <Stats stats="4.9/5 Stars" content="12,847 Reviews" />
-      </article>
-      <article className="flex items-center space-x-3">
-        <div className="bg-gray-300 w-12 h-12 flex items-center justify-center rounded-[8px]">
-          <Shield color="green" className="hover:animate-pulse cursor-pointer" size={40} />
-        </div>
+        {/* Buttons */}
+        <button className="flex absolute right-2 top-2 sm:top-[-14px] items-center space-x-2 bg-green-700 hover:bg-green-600 text-white py-2 px-4 rounded-full transition duration-300 ease-in-out text-sm sm:text-base">
+        <Flame color="#D7D725" className="animate-pulse hover:animate-spin" />
+        <span> Limited Time: 25% Off</span>
+        </button>
 
-        <Stats stats="4.9/5 Stars" content="12,847 Reviews" />
-      </article>
-      <article className="flex items-center space-x-3">
-        <div className="bg-gray-300 w-12 h-12 flex items-center justify-center rounded-[8px]">
-          <Users color="green" className="hover:animate-pulse cursor-pointer" size={40} />
-        </div>
+        <button className="flex absolute left-2 rotate-[340deg] hover:rotate-0 transition duration-300 ease-in-out text-white items-center space-x-2 bg-green-700 hover:bg-green-600 py-2 px-4 rounded-full text-sm sm:text-base">
+          Trending Now
+        </button>
 
-        <Stats stats="4.9/5 Stars" content="12,847 Reviews" />
-      </article>
-      <article className="flex items-center space-x-3">
-        <div className="bg-gray-300 w-12 h-12 flex items-center justify-center rounded-[8px]">
-          <Truck color="green" className="hover:animate-pulse cursor-pointer" size={40} />
-        </div>
-
-        <Stats stats="4.9/5 Stars" content="12,847 Reviews" />
-      </article>
+        <button className="flex absolute left-2 bottom-2 items-center space-x-2 bg-green-700 hover:bg-green-600 text-white animate-bounce py-2 px-4 rounded-full text-sm sm:text-base">
+        <Sparkles color="#D7D725" className="animate-pulse hover:animate-spin"/>
+         <span> Premium Quality Guaranteed</span>
+        </button>
       </section>
 
-      <section className="flex justify-between mt-6">
-        <div className="flex items-center space-x-6">
-        <Award color="green" className="hover:animate-pulse cursor-pointer" size={28}/>
-        <p>Best E-commerce {new Date().getFullYear()}</p>
-        </div>
-        <p>Featured in TechCrunch, Forbes & Wired</p>
-      </section>
-        </article>
-
-        <article className=" relative bg-green-100 flex items-center justify-center rounded-lg w-[450px] h-[500px] ml-[200px]">
-            <section className="shadow-md">
-               <Image 
-                src='/assets/images/modern-shopping-bags-and-products-hero-image.jpg'
-                alt="Hero image"
-                width={350}
-                height={300}
-                className="w-full object-cover"
-               />
-            </section>
-
-            <button className="flex absolute right-0 top-[-14px] items-center space-x-2 bg-green-700 hover:bg-green-600  py-2 px-4 rounded-full mb-3">
-          New Collection Just Dropped
-        </button>
-        <button className="flex absolute left-0 rotate-340 hover:rotate-0 transition-300 ease-in-out text-white items-center space-x-2 bg-green-700 hover:bg-green-600  py-2 px-4 rounded-full mb-3">
-        Trending Now
-        </button>
-        <button className="flex absolute left-0 bottom-[-14px] items-center space-x-2 bg-green-700 hover:bg-green-600 animate-bounce py-2 px-4 rounded-full mb-3">
-          New Collection Just Dropped
-        </button>
-        </article>
     </section>
   );
 }

@@ -1,9 +1,7 @@
 import Link from 'next/link';
 import React from 'react';
 import SearchBar from '../common/SearchBar';
-import { FaCartPlus } from 'react-icons/fa';
-import { FaCartShopping } from 'react-icons/fa6';
-import { Menu } from 'lucide-react';
+import { Menu, ShoppingCart } from 'lucide-react';
 
 function Header() {
     return (
@@ -30,8 +28,8 @@ function Header() {
             <SearchBar />
            </div>
            <div aria-label='Shoping Cart' className='flex items-center text-2xl space-x-12'>
-            <FaCartShopping className='text-gray-400'/>
-            <Menu className='flex lg:hidden'/>
+            <ShoppingCart className='text-gray-400 hover:bg-green-600 hover:text-gray-600 rounded-md p-2' size={50} />
+            <Menu className='flex lg:hidden' size={50}/>
            </div>
         </header>
     );

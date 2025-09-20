@@ -1,21 +1,43 @@
-import Image from "next/image";
-import { Geist, Geist_Mono } from "next/font/google";
 import Hero from "@/component/home/Hero";
+import Product from "@/component/home/Product";
+import ProductCategory from "@/component/home/ProductCatery";
+import { IProduct } from "@/models/Product";
+import { ICategoryProps } from "@/types";
+import { GetServerSideProps } from "next";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+interface HomeProps {
+  products: IProduct[];
+  productCategory:ICategoryProps[];
+}
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-export default function Home() {
+export default function Home({ products,productCategory }: HomeProps) {
   return (
-    <div className="p-24">
-        <Hero />
+    <div className="py-6 bg-gray-100">
+      <Hero />
+      <Product products={products} />
+      <ProductCategory productCategory={productCategory} />
     </div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const productRes = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products`);
+  const products: IProduct[] = await productRes.json();
+
+  const categoryRes = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products/categories`);
+  const categories = await categoryRes.json();
+
+  // Map _id to id for React props
+  const productCategory: ICategoryProps[] = categories.map((cat : ICategoryProps | any ) => ({
+    id: String(cat._id),
+    name: cat.name,
+    image: cat.image,
+    description: cat.description,
+  }));
+
+  return {
+    props: { products, productCategory },
+  };
+};
+
+

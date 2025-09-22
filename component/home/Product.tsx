@@ -12,7 +12,6 @@ interface ProductPageProps {
 
 const Product: React.FC<ProductPageProps> = ({ products }) => {
   const router = useRouter();
-
   return (
     <article className="min-h-screen lg:pt-24 px-4 py-6 lg:px-16 mt-12 bg-white">
       <header className="text-center">
@@ -37,7 +36,6 @@ const Product: React.FC<ProductPageProps> = ({ products }) => {
           onClick={() =>
             router.push({
               pathname: "/product",
-              query: { filterBy: "", sortBy: "" }, // empty = default
             })
           }
         />

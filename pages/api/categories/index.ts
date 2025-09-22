@@ -10,35 +10,12 @@ export default async function handler(
 
   try {
     if (req.method === "GET") {
-      const { filterBy, sortBy } = req.query;
-
-      let query = Category.find();
-
-      // Optional filtering by name
-      if (filterBy && typeof filterBy === "string" && filterBy.trim() !== "") {
-        query = query.where("name").regex(new RegExp(filterBy, "i"));
-      }
-
-      // Optional sorting
-      if (sortBy && typeof sortBy === "string") {
-        switch (sortBy) {
-          case "name-asc":
-            query = query.sort({ name: 1 });
-            break;
-          case "name-desc":
-            query = query.sort({ name: -1 });
-            break;
-          case "createdAt":
-            query = query.sort({ createdAt: -1 });
-            break;
-        }
-      }
-
-      const categories = await query.lean();
-
+      // Fetch all categories
+      const categories = await Category.find().lean();
       return res.status(200).json(
         categories.map((cat) => ({
           id: cat._id.toString(),
+          categoryId :cat.id,
           name: cat.name,
           description: cat.description,
           image: cat.image,

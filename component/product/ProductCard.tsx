@@ -1,11 +1,13 @@
 import type { ProductCard } from "@/interfaces";
 import { Heart, ShoppingCart } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useState } from "react";
 import { FaStar } from "react-icons/fa";
 
 const ProductCard: React.FC<ProductCard> = ({
   image,
+  id,
   name,
   description,
   price,
@@ -21,6 +23,7 @@ const ProductCard: React.FC<ProductCard> = ({
   };
 
   return (
+  <Link href={`/product/${id}`}>
     <div className="bg-white rounded-[14px] shadow-md overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-xl">
       {/* Image Section */}
       <div className="relative group">
@@ -43,7 +46,7 @@ const ProductCard: React.FC<ProductCard> = ({
         {/* Favorite (Wishlist) Button */}
         <button
           onClick={handleFavorite}
-          className="absolute top-3 right-3 bg-white p-2 rounded-full shadow-md opacity-80 hover:opacity-100 transition"
+          className="absolute top-3 right-3 translate-y-3 group-hover:translate-y-0 transition-transform duration-300 ease-out bg-white p-2 rounded-full shadow-md opacity-0 hover:opacity-100"
         >
           {isFavorite ? (
             <Heart className="text-green-600 fill-green-600 transition-colors duration-300" />
@@ -103,6 +106,7 @@ const ProductCard: React.FC<ProductCard> = ({
         </div>
       </div>
     </div>
+  </Link>
   );
 };
 

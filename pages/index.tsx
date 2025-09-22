@@ -24,16 +24,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
   const productRes = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products`);
   const products: IProduct[] = await productRes.json();
 
-  const categoryRes = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products/categories`);
-  const categories = await categoryRes.json();
-
-  // Map _id to id for React props
-  const productCategory: ICategoryProps[] = categories.map((cat : ICategoryProps | any ) => ({
-    id: String(cat._id),
-    name: cat.name,
-    image: cat.image,
-    description: cat.description,
-  }));
+  const categoryRes = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/categories`);
+  const productCategory : ICategoryProps[] = await categoryRes.json();
 
   return {
     props: { products, productCategory },

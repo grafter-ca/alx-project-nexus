@@ -11,16 +11,12 @@ const ProductCategoryCard: React.FC<ICategoryProps> = ({
   description,
 }) => {
   const router = useRouter();
-
-  const [isLoading,setIsLoading] =useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleExplore = () => {
-    if(!isLoading){
+    if (!isLoading) {
+      setIsLoading(true);
       router.push(`/product/category/${categoryId}`);
-    }
-    else{
-      setIsLoading(true)
-      return <div className="flex items-center justify-center w-[120px] h-[120px] animate-spin border-2"></div>
     }
   };
 
@@ -35,27 +31,35 @@ const ProductCategoryCard: React.FC<ICategoryProps> = ({
         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
       />
 
-      {/* Dark Overlay that fades in on hover */}
+      {/* Dark Overlay */}
       <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-       <div className="absolute left-6 bottom-6 w-2/3">
+
+      {/* Title + Description */}
+      <div className="absolute left-6 bottom-6 w-2/3">
         <h1 className="text-white text-2xl font-bold">{name}</h1>
         {description && (
-          <p className="text-gray-200 font-medium text-base mt-1">{description}</p>
+          <p className="text-gray-200 font-medium text-base mt-1">
+            {description}
+          </p>
         )}
-       </div>
-      {/* Content - slides up on hover */}
+      </div>
 
-      <div className="absolute inset-x-0 bottom-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out flex flex-col items-start p-4">
-
-        {/* Action button */}
+      {/* Hover Content with Button in Top Right */}
+      <div className="absolute inset-0 flex flex-col justify-between p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
         <button
           onClick={handleExplore}
           role="button"
-          className="mt-6 flex items-center gap-2 bg-white text-black px-4 py-2 rounded-full hover:bg-gray-200 transition"
+          className="self-end flex items-center gap-2 bg-green-600  text-gray-200  p-2 rounded-full hover:bg-green-800 transition"
           aria-label={`Explore ${name}`}
+          title="Explore Category"
         >
-          Browse Products
-          <ChevronRight size={18} />
+          {isLoading ? (
+            <div className="w-4 h-4 border-2 border-gray-500 border-t-transparent rounded-full animate-spin"></div>
+          ) : (
+            <>
+              <ChevronRight size={24} />
+            </>
+          )}
         </button>
       </div>
     </div>

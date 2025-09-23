@@ -12,7 +12,7 @@ interface HomeProps {
 
 export default function Home({ products,productCategory }: HomeProps) {
   return (
-    <div className="py-6 bg-gray-100">
+    <div className="pt-6 bg-gray-100">
       <Hero />
       <Product products={products} />
       <ProductCategory productCategory={productCategory} />

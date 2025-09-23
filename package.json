@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.9.0",
+    "framer-motion": "^12.23.19",
     "lucide-react": "^0.544.0",
     "lucide-solid": "^0.544.0",
     "mongoose": "^8.18.1",

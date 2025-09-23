@@ -20,13 +20,13 @@ function Hero() {
     <section className="flex flex-col lg:flex-row items-center gap-8 px-4 py-6 lg:px-16 mt-12">
       {/* Left Content */}
       <article className="w-full lg:w-[60%]">
-        <header>
+        <header >
           <button className="flex items-center space-x-2 bg-green-700 hover:bg-green-600 animate-bounce py-2 px-4 rounded-full mb-6 text-white">
             <Activity color="white" />
             <span>New Collection Just Dropped</span>
           </button>
 
-          <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold leading-tight">
+          <h1 className="text-[50px] md:text-4xl lg:text-8xl font-bold leading-tight">
             Premium Products That Transform Your{" "}
             <span className="text-green-400 animate-pulse">Everyday Life</span>
           </h1>

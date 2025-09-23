@@ -30,7 +30,7 @@ const Product: React.FC<ProductPageProps> = ({ products }) => {
         </div>
       </section>
 
-      <section className="flex py-[104px] items-center justify-center">
+      <section className="flex py-[60px] items-center justify-center">
         <ButtonWithOutIcon
           label="View All Products"
           onClick={() =>

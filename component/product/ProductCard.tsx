@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import { FaStar } from "react-icons/fa";
+import AddToCartButton from "../common/button/AddToCartButton";
 
 const ProductCard: React.FC<ProductCard> = ({
   image,
@@ -99,10 +100,16 @@ const ProductCard: React.FC<ProductCard> = ({
             <span className="text-xl font-bold text-gray-900">${price}</span>
           )}
 
-          <button className="bg-green-700 flex items-center text-white px-4 py-2 rounded-lg hover:bg-green-600 transition">
-            <ShoppingCart className="mr-2" size={18} />
-            Add
-          </button>
+          <AddToCartButton 
+            id={id}
+            name={name}
+            description={description}
+            price={price}
+            image={image}
+            discount={discount}
+            hasDiscount={hasDiscount}
+            className="px-3 py-1 text-sm"
+          />
         </div>
       </div>
     </div>

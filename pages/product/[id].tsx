@@ -21,6 +21,8 @@ import Stats from "@/component/common/Stats";
 import QuantitySelector from "@/component/common/QuantitySelector";
 import ProductTabs from "@/component/product/ProductTabs";
 import RelatedProduct from "@/component/product/RelatedProduct";
+import { useRouter } from "next/router";
+import AddToCartButton from "@/component/common/button/AddToCartButton";
 
 interface ProductDetailPageProps {
   product: IProduct | null;
@@ -36,6 +38,7 @@ const ProductDetailPage = ({ product }: ProductDetailPageProps) => {
     );
   }
 
+  const Router = useRouter();
   return (
     <article className="py-6 px-4 lg:px-28">
       <header>
@@ -64,7 +67,7 @@ const ProductDetailPage = ({ product }: ProductDetailPageProps) => {
           </p>
         </div>
         <button
-          onClick={() => alert("redirection to catalog page")}
+          onClick={() => Router.push("/catalog")}
           className="flex items-center space-x-4 hover:bg-green-600 text-gray-800 hover:text-gray-200 px-4 py-2 rounded-lg transition duration-800"
         >
           <ChevronLeft />
@@ -90,7 +93,7 @@ const ProductDetailPage = ({ product }: ProductDetailPageProps) => {
                 alt={`${product.name}`}
                 height={400}
                 width={400}
-                className="rounded-2xl hover:scale-105 transition-scale duration-500 ease-in-out"
+                className="rounded-2xl h-48 hover:scale-105 transition-scale duration-500 ease-in-out"
               />
             ))}
           </section>
@@ -163,7 +166,15 @@ const ProductDetailPage = ({ product }: ProductDetailPageProps) => {
             <QuantitySelector />
 
             <div className="flex space-x-5">
-              <ButtonWithOutLeftIcon Icon={ShoppingCart} label="Add" />
+              <AddToCartButton
+                id={product.id}
+                name={product.name}
+                description={product.description}
+                price={product.price}
+                image={product.image}
+                discount={product.discount}
+                hasDiscount={product.hasDiscount}
+              />
               <ButtonWithOutIcon label="Buy Now" />
             </div>
 
@@ -192,10 +203,8 @@ const ProductDetailPage = ({ product }: ProductDetailPageProps) => {
           }
         />
 
-        <RelatedProduct products   = {product.relatedProducts || []}/>
+        <RelatedProduct products={product.relatedProducts || []} />
       </section>
-
-
     </article>
   );
 };

@@ -33,3 +33,15 @@ export interface ProductCategoryProps{
     description:string;
 }
 
+ export interface CartItem {
+  id: string;            
+  name: string;          
+  description: string;   
+  price: number;         
+  quantity: number;      
+  image?: string;        
+  categoryId?: string;  
+  rating?: number;       
+}
+
+

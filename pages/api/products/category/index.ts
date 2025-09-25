@@ -1,17 +1,21 @@
-// pages/api/products.ts
 import type { NextApiRequest, NextApiResponse } from "next";
 import dbConnect from "@/utils/mongodb";
-import Product from "@/models/Product";
+import Product, { IProduct } from "@/models/Product"; // make sure your model exports IProduct interface
+import { FilterQuery } from "mongoose";
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   await dbConnect();
 
   if (req.method === "GET") {
     try {
       const { category } = req.query;
-      const filter: any = {};
+      // Use a typed filter compatible with Mongoose
+      const filter: FilterQuery<IProduct> = {};
 
-      if (category) filter.categoryId = category;
+      if (category) filter.categoryId = category as string;
 
       const products = await Product.find(filter).lean();
 

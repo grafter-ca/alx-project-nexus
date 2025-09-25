@@ -40,14 +40,14 @@ const ProductCard: React.FC<ProductCard> = ({
 
   return (
     <Link href={`/product/${id}`}>
-      <div className="bg-white rounded-[14px] shadow-md overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+      <div className="bg-white flex rounded-[14px] shadow-md overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-xl">
         {/* Image Section */}
         <div className="relative group">
           <Image
             src={image}
             alt={name}
-            width={400}
-            height={300}
+            width={280}
+            height={280}
             priority
             onError={(e) => {
               e.currentTarget.src = "/fallback.png";

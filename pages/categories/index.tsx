@@ -10,7 +10,7 @@ interface Props {
 
 const ProductCategoryPage: React.FC<Props> = ({ productCategory }) => {
   return (
-    <article className="min-h-screen lg:pt-24 px-4 py-6 lg:px-16 border-t-2 border-t-gray-100 bg-white ">
+    <article className="min-h-screen lg:pt-24 px-4 py-12 lg:px-16 border-t-2 border-t-gray-100 bg-white ">
       <header className="text-center">
         <h1 className="text-4xl font-bold">Shop by Category</h1>
         <p className="text-xl">

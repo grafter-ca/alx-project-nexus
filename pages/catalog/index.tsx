@@ -12,8 +12,8 @@ import {
 } from "@/redux/slices/searchSlice";
 import { Grid3X3, List } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import { motion } from "framer-motion"; // ✅ Added Framer Motion
-
+import { motion } from "framer-motion";
+import ProductCardRowComponent from "@/component/product/ProductCardRow";
 interface Props {
   allProducts: ProductCard[];
   categories: string[];
@@ -23,19 +23,17 @@ const CatalogPage: React.FC<Props> = ({ allProducts, categories }) => {
   const dispatch = useDispatch();
   const searchParams = useSearchParams();
 
-  // ✅ Redux state
   const keyword = useSelector((state: RootState) => state.search.keyword);
   const filteredProducts = useSelector(
     (state: RootState) => state.search.filteredProducts
   );
 
-  // ✅ Local state
   const [sortBy, setSortBy] = useState("name");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
   const [minRating, setMinRating] = useState(0);
+  const [isGrigView, setIsGrigView] = useState(true);
 
-  // ✅ Initialize allProducts in Redux only once
   useEffect(() => {
     if (allProducts?.length) {
       dispatch(setAllProducts(allProducts));
@@ -43,14 +41,12 @@ const CatalogPage: React.FC<Props> = ({ allProducts, categories }) => {
     }
   }, [allProducts, dispatch]);
 
-  // ✅ Sync search keyword from query params
   useEffect(() => {
     const search = searchParams.get("search") || "";
     dispatch(setKeyword(search));
     dispatch(filterProducts(allProducts));
   }, [searchParams, allProducts, dispatch]);
 
-  // ✅ Apply filters and sorting
   const displayedProducts = filteredProducts
     ?.filter((p) =>
       selectedCategory ? p.categoryId === selectedCategory : true
@@ -88,8 +84,8 @@ const CatalogPage: React.FC<Props> = ({ allProducts, categories }) => {
 
       <section className="flex flex-col lg:flex-row gap-6">
         {/* Sidebar */}
-        <aside className="lg:w-1/4 space-y-6 sticky top-20 h-[calc(100vh-5rem)] overflow-y-auto p-4 bg-white shadow rounded-lg">
-          <h2 className="text-xl font-bold mb-2">Categories</h2>
+        <aside className="lg:w-1/4 space-y-6 sticky top-20 h-[calc(100vh-5rem)] overflow-y-auto p-4 bg-white shadow rounded-lg hidden lg:block">
+          <h2 className="text-xl font-bold my-6">Filter By Category</h2>
           <ul className="space-y-2">
             <li
               className={`cursor-pointer ${
@@ -102,7 +98,7 @@ const CatalogPage: React.FC<Props> = ({ allProducts, categories }) => {
             {(categories || []).map((cat) => (
               <li
                 key={cat}
-                className={`cursor-pointer ${
+                className={`cursor-pointer capitalize ${
                   selectedCategory === cat ? "font-bold text-green-700" : ""
                 }`}
                 onClick={() => setSelectedCategory(cat)}
@@ -151,16 +147,46 @@ const CatalogPage: React.FC<Props> = ({ allProducts, categories }) => {
             <div>{minRating.toFixed(1)} Stars & Up</div>
           </div>
         </aside>
-
+          {/* mobile filter */}
+          <section>
+          <div className="lg:hidden mb-4 w-2/3 md:w-1/3">
+            <details className="bg-white p-4 rounded-lg shadow">
+              <summary className="font-bold cursor-pointer">Filter By Category</summary>
+              <div className="mt-4 space-y-4">
+             <ul className="space-y-2">
+            <li
+              className={`cursor-pointer ${
+                selectedCategory === null ? "font-bold" : ""
+              }`}
+              onClick={() => setSelectedCategory(null)}
+            >
+              All
+            </li>
+            {(categories || []).map((cat) => (
+              <li
+                key={cat}
+                className={`cursor-pointer capitalize ${
+                  selectedCategory === cat ? "font-bold text-green-700" : ""
+                }`}
+                onClick={() => setSelectedCategory(cat)}
+              >
+                {cat}
+              </li>
+            ))}
+          </ul>
+          </div>
+          </details>
+          </div>
+          </section>
         {/* Main Content */}
         <main className="flex-1 space-y-6">
           {/* Sorting & Count */}
-          <div className="flex justify-between items-center mt-4">
+          <div className="lg:flex justify-between items-center mt-4 space-y-4 lg:space-y-0">
             <span className="text-gray-600">
               Showing {displayedProducts?.length || 0} of{" "}
               {filteredProducts?.length || 0} products
             </span>
-            <div className="flex items-center space-x-12">
+            <div className="flex items-center space-x-12 mt-4 lg:mt-0">
               <label htmlFor="sort" className="text-gray-600 font-medium">
                 Sort by:
               </label>
@@ -175,14 +201,22 @@ const CatalogPage: React.FC<Props> = ({ allProducts, categories }) => {
                 <option value="priceDesc">Price: High to Low</option>
                 <option value="rating">Rating</option>
               </select>
-              <div className="flex items-center gap-2 border border-gray-300 py-1 px-2 rounded">
+              <div className="flex items-center gap-2 border border-gray-300 py-1 px-2 rounded" arial-label="change product view" aria-colindex={2}>
                 <Grid3X3
                   className="cursor-pointer hover:bg-green-800 hover:text-gray-200 rounded-sm p-1 mr-2"
                   size={24}
+                  aria-label="grid view"
+                  aria-colindex={1}
+                  role="button"
+                  onClick={() => setIsGrigView(true)}
                 />
                 <List
                   className="cursor-pointer hover:bg-green-800 hover:text-gray-200 rounded-sm p-1"
                   size={24}
+                  aria-label="list view"
+                   aria-colindex={2}
+                   role="button"
+                   onClick={() => setIsGrigView(false)}
                 />
               </div>
             </div>
@@ -191,6 +225,7 @@ const CatalogPage: React.FC<Props> = ({ allProducts, categories }) => {
           {/* Product Grid with Framer Motion */}
           {displayedProducts?.length > 0 ? (
             <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-2 py-6 scroll-smooth">
+             
               {displayedProducts.map((product, index) => (
                 <motion.div
                   key={product.id}
@@ -199,7 +234,9 @@ const CatalogPage: React.FC<Props> = ({ allProducts, categories }) => {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   viewport={{ once: true, amount: 0.2 }}
                 >
+                  {isGrigView ?
                   <ProductCardComponent {...product} />
+                  : <ProductCardRowComponent {...product} />}
                 </motion.div>
               ))}
             </section>
@@ -210,8 +247,9 @@ const CatalogPage: React.FC<Props> = ({ allProducts, categories }) => {
               </div>
               <h2 className="text-3xl font-bold">🔍 No Results Found</h2>
               <p className="text-gray-600">
-                We couldn't find any products matching "{keyword}". Try
-                different keywords or browse our categories.
+                We couldn&apos;t find any products matching{" "}
+                <span className="text-gray-600 font-semibold">{keyword}</span>.
+                Try different keywords or browse our categories.
               </p>
               <button
                 onClick={() => dispatch(setKeyword(""))}

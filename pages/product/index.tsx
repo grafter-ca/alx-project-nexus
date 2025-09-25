@@ -2,8 +2,6 @@
 import React from "react";
 import { GetServerSideProps } from "next";
 import ProductCard from "@/component/product/ProductCard";
-import ButtonWithOutIcon from "@/component/common/button/ButtonWithOutIcon";
-import { useRouter } from "next/router";
 import { IProduct } from "@/models/Product";
 import { ICategoryProps } from "@/types";
 
@@ -12,7 +10,6 @@ interface ProductPageProps {
 }
 
 const Product: React.FC<ProductPageProps> = ({ products }) => {
-  const router = useRouter();
 
   return (
     <article className="min-h-screen lg:pt-24 px-4 py-6 lg:px-16 mt-12 bg-white">
@@ -46,8 +43,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
   const categories = await categoryRes.json();
 
   // Map _id to id for React props
-  const productCategory: ICategoryProps[] = categories.map((cat : ICategoryProps | any ) => ({
-    id: String(cat._id),
+  const productCategory: ICategoryProps[] = categories.map((cat : ICategoryProps ) => ({
+    id: String(cat.id),
     name: cat.name,
     image: cat.image,
     description: cat.description,

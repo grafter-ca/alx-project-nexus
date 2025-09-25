@@ -26,7 +26,7 @@ function Hero() {
             <span>New Collection Just Dropped</span>
           </button>
 
-          <h1 className="text-[50px] md:text-4xl lg:text-8xl font-bold leading-tight">
+          <h1 className="text-[50px] md:text-4xl lg:text-[70px] font-bold leading-tight">
             Premium Products That Transform Your{" "}
             <span className="text-green-400 animate-pulse">Everyday Life</span>
           </h1>

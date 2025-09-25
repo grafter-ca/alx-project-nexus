@@ -1,5 +1,4 @@
 import ButtonWithOutIcon from "@/component/common/button/ButtonWithOutIcon";
-import ButtonWithOutLeftIcon from "@/component/common/button/ButtonWithIconLeft";
 import StarRating from "@/component/common/StarRating";
 import { IProduct } from "@/models/Product";
 import { ICategoryProps } from "@/types";
@@ -10,7 +9,6 @@ import {
   RotateCcw,
   Share2,
   Shield,
-  ShoppingCart,
   Truck,
 } from "lucide-react";
 import { GetServerSideProps } from "next";
@@ -30,6 +28,8 @@ interface ProductDetailPageProps {
 }
 
 const ProductDetailPage = ({ product }: ProductDetailPageProps) => {
+  const Router = useRouter();
+
   if (!product) {
     return (
       <div className="flex items-center justify-center py-28">
@@ -38,7 +38,6 @@ const ProductDetailPage = ({ product }: ProductDetailPageProps) => {
     );
   }
 
-  const Router = useRouter();
   return (
     <article className="py-6 px-4 lg:px-28">
       <header>
@@ -87,8 +86,9 @@ const ProductDetailPage = ({ product }: ProductDetailPageProps) => {
             />
           </figure>
           <section className="grid grid-cols-3 gap-4 py-6">
-            {product.gallery?.map((photo) => (
+            {product.gallery?.map((photo, index) => (
               <Image
+                key={index}
                 src={photo}
                 alt={`${product.name}`}
                 height={400}

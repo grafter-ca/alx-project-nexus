@@ -34,7 +34,7 @@ function Header() {
   const isActive = (path: string) => router.pathname === path;
 
   return (
-    <header className="flex items-center justify-between px-6 py-4 shadow-md relative">
+    <header className="flex items-center justify-between p-4 shadow-md relative">
       {/* Logo */}
       <div aria-label="Logo" className="flex space-x-3 items-center">
         <h1 className="bg-green-600 text-white text-3xl flex items-center justify-center font-medium w-10 h-10 rounded-[10px]">
@@ -87,7 +87,7 @@ function Header() {
             size={40}
           />
           {totalItems > 0 && (
-            <span className="absolute top-0 right-0 bg-red-600 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+            <span className="absolute top-[-2px] right-4 bg-red-600 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
               {totalItems}
             </span>
           )}

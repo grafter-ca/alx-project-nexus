@@ -28,6 +28,9 @@ const ProductCategoryCard: React.FC<ICategoryProps> = ({
         alt={name}
         width={350}
         height={280}
+        onError={(e) => {
+              e.currentTarget.src = "/fallback.png";
+            }}
         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
       />
 

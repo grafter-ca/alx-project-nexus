@@ -30,7 +30,7 @@ const Footer = () =>  {
   };
   return (
     <>
-    <div className="h-4 bg-green-100 w-full"></div>
+    <div className="p-4 bg-green-100 w-full"></div>
     <footer className="bg-gray-200 text-gray-900 py-6">
       <div className="lg:flex block items-center justify-between px-4">
         {/* About Section */}

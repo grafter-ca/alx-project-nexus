@@ -39,21 +39,21 @@ const ProductCard: React.FC<ProductCard> = ({
   }
 
   return (
-    <Link href={`/product/${id}`}>
-      <div className="bg-white rounded-[14px] shadow-md overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+    <div className="bg-white rounded-[14px] shadow-md overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-xl">
         {/* Image Section */}
         <div className="relative group">
+        <Link href={`/product/${id}`}>
           <Image
             src={image}
             alt={name}
             width={400}
             height={300}
             priority
-            onError={(e) => {
-              e.currentTarget.src = "/fallback.png";
-            }}
             className="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-110"
+            aria-label="referencing product detail page"
+            key={`product-${id}`}
           />
+            </Link>
 
           {/* Discount Badge */}
           {hasDiscount && (
@@ -74,7 +74,7 @@ const ProductCard: React.FC<ProductCard> = ({
             )}
           </button>
         </div>
-
+       
         {/* Content Section */}
         <div className="p-5 bg-gray-50">
           {/* Product Name */}
@@ -131,7 +131,6 @@ const ProductCard: React.FC<ProductCard> = ({
           </div>
         </div>
       </div>
-    </Link>
   );
 };
 

@@ -12,18 +12,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     await Order.db?.readyState;
    try {
     const method = req.method;
+    const {id} = req.query;
 
     if (method == "GET") {
-        const categoryCount = await Category.countDocuments();
-        const userCount = await User.countDocuments();
-        const productCount = await Product.countDocuments();
-        const orderCount = await Order.countDocuments();
+        // check signed in  user or user in  session here
+
+        const user = await User.findById(id);
 
         return res.status(200).json({ 
-            categoryCount: categoryCount, 
-            userCount: userCount, 
-            productCount: productCount, 
-            orderCount: orderCount, 
+           
         });
     }
     if (method !== "GET"){

@@ -48,7 +48,7 @@ const SearchBar: React.FC<Props> = ({ allProducts }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex items-center space-x-2 rounded-md bg-gray-100 border-2 border-amber-100 w-full lg:w-[373px] p-2"
+      className="flex items-center space-x-2 rounded-md bg-gray-100 border-2 border-gray-200 w-full lg:w-[350px] p-2 focus-within:border-green-300 lg:ml-8 ml-0"
     >
       <FaSearch className="text-gray-400" />
       <input

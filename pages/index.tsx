@@ -18,33 +18,14 @@ interface HomeProps {
 }
 
 export default function Home({ products, productCategory }: HomeProps) {
-  const [isRegisterOpen, setRegisterOpen] = useState(false);
-  const [isLoginOpen, setLoginOpen] = useState(false);
-  
-
   return (
     <section className="pt-6 bg-gray-100">
-      {/* Authentication Buttons */}
-      <div className="flex justify-end px-12 space-x-4">
-        <button
-          onClick={() => setRegisterOpen(true)}
-          className="bg-green-400 hover:bg-green-500 cursor-pointer text-white px-4 py-2 rounded"
-        >
-          Register
-        </button>
-        <button
-          onClick={() => setLoginOpen(true)}
-          className="border-gray-300 border hover:text-white hover:bg-green-500 cursor-pointer px-4 py-2 rounded"
-        >
-          Login
-        </button>
-      </div>
-
+      
       {/* Main Homepage */}
       <Hero />
       <Product products={products} />
       <ProductCategory productCategory={productCategory} />
-      <article className="bg-gray-50">
+      <article className="bg-gray-50 py-6">
         <section className="flex flex-col items-center justify-center text-center bg-green-800 rounded-md lg:py-24 py-12 lg:mx-25 mx-0">
           <h1 className="text-[35px] text-white font-bold mt-8">
             Stay in the Loop
@@ -59,22 +40,9 @@ export default function Home({ products, productCategory }: HomeProps) {
           </p>
         </section>
       </article>
-
-      {/* Register Modal */}
-      <Modal isOpen={isRegisterOpen} onClose={() => setRegisterOpen(false)}>
-        <RegisterForm closeModal={() => setRegisterOpen(false)} />
-      </Modal>
-
-      {/* Login Modal */}
-      <Modal isOpen={isLoginOpen} onClose={() => setLoginOpen(false)}>
-        <LoginForm closeModal={() => setLoginOpen(false)} />
-      </Modal>
     </section>
   );
 }
-
-
-
 
 // --- Server Side Props ---
 export const getServerSideProps: GetServerSideProps = async () => {

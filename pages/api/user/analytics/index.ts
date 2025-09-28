@@ -13,8 +13,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const { userId } = req.query;
     if (!userId) return res.status(400).json({ message: "User ID required" });
 
-    const orders = await Order.find({ user: userId }).populate("items.product");
-    return res.status(200).json(orders);
+    const orders = await Order.find({ user: userId });
+    const totalSpent = orders.reduce((sum, o) => sum + o.total, 0);
+
+    return res.status(200).json({
+      totalOrders: orders.length,
+      totalSpent,
+    });
   } catch (err) {
     return res.status(500).json({ message: "Server error", error: err });
   }

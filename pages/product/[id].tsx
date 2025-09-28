@@ -167,7 +167,7 @@ const ProductDetailPage = ({ product }: ProductDetailPageProps) => {
 
             <div className="flex space-x-5">
               <AddToCartButton
-                id={product.id}
+                id={product._id}
                 name={product.name}
                 description={product.description}
                 price={product.price}
@@ -217,7 +217,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   console.log("Fetching product with ID:", id);
 
   const productRes = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/products/${id}`
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/products/product/${id}`
   );
 
   if (!productRes.ok) {

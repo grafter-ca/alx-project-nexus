@@ -24,6 +24,7 @@ const OrderSummary: React.FC<Props> = ({ subtotal, shipping, tax, total }) => {
   const router = useRouter();
   const { isLoggedIn, user } = useSelector((state: RootState) => state.user);
   const cartItems = useSelector((state: RootState) => state.cart.items);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [profile, setProfile] = useState<IUserProfile | null>(null);
 
@@ -44,6 +45,7 @@ const OrderSummary: React.FC<Props> = ({ subtotal, shipping, tax, total }) => {
       if (res.ok) {
         const data = await res.json();
         setProfile(data);
+        console.log("Fetched user profile:", data);
       } else {
         console.error("Failed to fetch profile");
       }
@@ -67,13 +69,13 @@ const OrderSummary: React.FC<Props> = ({ subtotal, shipping, tax, total }) => {
         return;
       }
 
-      // ✅ Debug cart items before sending
+      //  Debug cart items before sending
       console.log("🛒 Cart items at checkout:", cartItems);
 
       const items = cartItems.map((item) => {
-        const productId = item._id || item.id; // fallback if _id missing
+        const productId = item.id || item._id; // ensure we have the product ID
         if (!productId) {
-          console.error("❌ Missing product ID for cart item:", item);
+          console.error("Missing product ID for cart item:", item);
         }
         return {
           product: productId,
@@ -82,9 +84,9 @@ const OrderSummary: React.FC<Props> = ({ subtotal, shipping, tax, total }) => {
         };
       });
 
-      console.log("📦 Items sent to order API:", items);
+      console.log("Items sent to order API:", items);
 
-      // ✅ Step 1: Create order in backend
+      //  Step 1: Create order in backend
       const orderRes = await fetch("/api/user/orders", {
         method: "POST",
         headers: {
@@ -97,21 +99,28 @@ const OrderSummary: React.FC<Props> = ({ subtotal, shipping, tax, total }) => {
           shipping,
           tax,
           total,
-          paymentMethod: "Chapa", // default or user-selected
+          paymentMethod: "Chapa",
         }),
       });
 
       if (!orderRes.ok) {
         const errText = await orderRes.text();
-        console.error("❌ Order API error response:", errText);
+        console.error("Order API error response:", errText);
         throw new Error("Failed to create order.");
       }
 
       const orderData = await orderRes.json();
-      console.log("✅ Order created successfully:", orderData);
+      console.log("Order created successfully:", orderData);
 
-      // ✅ Step 2: Initiate payment
-      const paymentRes = await fetch("/api/payment/initiate", {
+      const orderId = orderData.order._id;
+
+      if (!orderId) {
+        alert("Order creation failed: missing order ID");
+        return;
+      }
+
+      // Step 2: Initiate payment
+      const paymentRes = await fetch("/api/transaction/initialize", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -119,15 +128,15 @@ const OrderSummary: React.FC<Props> = ({ subtotal, shipping, tax, total }) => {
           email: profile.email,
           firstName: profile.firstName,
           lastName: profile.lastName,
-          orderId: orderData._id, // pass order ID for tracking
+          orderId: orderId,
         }),
       });
 
       const paymentData = await paymentRes.json();
-      console.log("💳 Payment initiation response:", paymentData);
+      console.log("Payment initiation response:", paymentData);
 
-      if (paymentData?.checkoutUrl) {
-        window.location.href = paymentData.checkoutUrl;
+      if (paymentData?.data?.checkout_url) {
+        window.location.href = paymentData.data.checkout_url;
       } else {
         alert("Failed to initialize payment.");
       }
@@ -166,9 +175,12 @@ const OrderSummary: React.FC<Props> = ({ subtotal, shipping, tax, total }) => {
       <div className="flex flex-col space-y-2">
         <button
           onClick={handleCheckout}
-          className="bg-green-600 text-white py-3 rounded hover:bg-green-700"
+          disabled={isLoading}
+          className={`bg-green-600 text-white py-3 rounded ${
+            isLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-green-700"
+          }`}
         >
-          Proceed to Checkout
+          {isLoading ? "Processing..." : "Proceed to Checkout"}
         </button>
 
         <Link

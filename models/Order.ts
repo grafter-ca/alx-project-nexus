@@ -9,7 +9,7 @@ export interface IOrder extends Document {
   shipping: number; // numeric shipping cost
   tax: number;
   total: number;
-  status: "pending" | "processing" | "shipped" | "delivered" | "cancelled";
+  status: "pending" | "processing" | "paid" | "delivered" | "cancelled";
   paymentMethod: "Mobile money" | "Chapa" | "Credit Card" | "Cash on Delivery";
   createdAt: Date;
   updatedAt: Date;
@@ -65,7 +65,7 @@ const OrderSchema: Schema<IOrder> = new Schema(
     },
     status: {
       type: String,
-      enum: ["pending", "processing", "shipped", "delivered", "cancelled"],
+      enum: ["pending", "processing", "shipped", "paid", "cancelled"],
       default: "pending",
     },
     paymentMethod: {

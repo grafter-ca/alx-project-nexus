@@ -4,11 +4,14 @@ import { useEffect, useState } from "react";
 import SidebarNav from "@/component/dashboard/SideBar";
 import { navLinks } from "@/constants";
 
+
 export default function Sidebar() {
 
-  const [user, setUser] = useState<any>(null);
-  const [analytics, setAnalytics] = useState<any>(null);
-  const [orders, setOrders] = useState<any[]>([]);
+  type User  = { id: string; firstName: string; [key: string]: any };
+
+  const [user, setUser] = useState<User | null>(null);
+  const [analytics, setAnalytics] = useState<{ totalOrders: number; totalProducts: number; totalUsers: number }>({ totalOrders: 0, totalProducts: 0, totalUsers: 0 });
+  const [orders, setOrders] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   
   
@@ -22,14 +25,12 @@ export default function Sidebar() {
           setUser(JSON.parse(userData));
         }
 
-        // ✅ Fetch analytics summary
         const res = await fetch(`/api/dashboard`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const analyticsData = await res.json();
         setAnalytics(analyticsData);
 
-        // ✅ Fetch orders for this user
         if (userData) {
           const { id } = JSON.parse(userData);
           const ordersRes = await fetch(`/api/user/orders?userId=${id}`, {

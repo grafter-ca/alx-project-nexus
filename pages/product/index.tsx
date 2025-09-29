@@ -3,7 +3,6 @@ import React from "react";
 import { GetServerSideProps } from "next";
 import ProductCard from "@/component/product/ProductCard";
 import { IProduct } from "@/models/Product";
-import { ICategoryProps } from "@/types";
 import {  ProductCardprops } from "@/interfaces";
 
 interface ProductPageProps {
@@ -37,16 +36,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
   const productRes = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products`);
   const products: IProduct[] = await productRes.json();
 
-  const categoryRes = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/categories`);
-  const categories = await categoryRes.json();
-
-  const productCategory: ICategoryProps[] = categories.map((cat: ICategoryProps) => ({
-    id: String(cat.id),
-    name: cat.name,
-    image: cat.image,
-    description: cat.description,
-  }));
-
   const mappedProducts: ProductCardprops[] = products.map((product) => ({
     _id: product._id, // MongoDB ObjectId
     id: String(product._id), // for React key and cart
@@ -62,6 +51,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
   }));
 
   return {
-    props: { products: mappedProducts, productCategory },
+    props: { products: mappedProducts },
   };
 };

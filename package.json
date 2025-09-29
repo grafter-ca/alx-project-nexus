@@ -39,6 +39,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@eslint/js": "^9.36.0",
     "@tailwindcss/postcss": "^4.1.13",
     "@types/cookie": "^0.6.0",
     "@types/js-cookie": "^3.0.6",
@@ -49,9 +50,12 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/uuid": "^10.0.0",
-    "eslint": "^9",
+    "eslint": "^9.36.0",
     "eslint-config-next": "15.5.3",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.4.0",
     "tailwindcss": "^4.1.13",
-    "typescript": "^5"
+    "typescript": "^5",
+    "typescript-eslint": "^8.44.1"
   }
 }

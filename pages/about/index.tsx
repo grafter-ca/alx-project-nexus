@@ -20,7 +20,7 @@ const AboutPage = () => {
           Curating Excellence Since 2025
         </h1>
         <p className="text-xl px-6 max-w-4xl mx-auto text-gray-600">
-          We're passionate about bringing you the finest products from around
+          We&apos;re passionate about bringing you the finest products from around
           the world, carefully selected for quality, style, and value.
         </p>
       </header>

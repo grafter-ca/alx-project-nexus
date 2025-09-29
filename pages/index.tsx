@@ -1,5 +1,6 @@
 "use client";
 
+import ContactForm from "@/component/common/ContactForm";
 import SubscribeForm from "@/component/common/SubscribeForm";
 import Hero from "@/component/home/Hero";
 import Product from "@/component/home/Product";
@@ -22,11 +23,13 @@ export default function Home({ products, productCategory }: HomeProps) {
       <Hero />
       <Product products={products} />
       <ProductCategory productCategory={productCategory} />
-      <article className="bg-gray-50 py-6">
+      <article className="bg-gray-50 pb-6">
         <section className="flex flex-col items-center justify-center text-center bg-green-800 rounded-md lg:py-24 py-12 lg:mx-25 mx-0">
-          <h1 className="text-[35px] text-white font-bold mt-8">
+         <h1 className="text-[35px] pb-6 text-white font-semibold">Contact Us</h1>
+        <ContactForm />
+          <h2 className="text-[35px] text-white font-bold mt-8">
             Stay in the Loop
-          </h1>
+          </h2>
           <p className="text-[16px] max-w-3xl mt-2 text-gray-100">
             Subscribe to our newsletter and be the first to know about new
             products, exclusive deals, and special offers.

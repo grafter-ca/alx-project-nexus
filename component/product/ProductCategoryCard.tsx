@@ -3,6 +3,7 @@ import Image from "next/image";
 import { ChevronRight } from "lucide-react";
 import { ICategoryProps } from "@/types";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const ProductCategoryCard: React.FC<ICategoryProps> = ({
   categoryId,
@@ -21,6 +22,7 @@ const ProductCategoryCard: React.FC<ICategoryProps> = ({
   };
 
   return (
+  <Link href={`/product/category/${categoryId}`}>
     <div className="relative group rounded-[14px] h-64 shadow-md overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-lg">
       {/* Category Image */}
       <Image
@@ -33,7 +35,6 @@ const ProductCategoryCard: React.FC<ICategoryProps> = ({
             }}
         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
       />
-
       {/* Dark Overlay */}
       <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
@@ -66,6 +67,7 @@ const ProductCategoryCard: React.FC<ICategoryProps> = ({
         </button>
       </div>
     </div>
+    </Link>
   );
 };
 

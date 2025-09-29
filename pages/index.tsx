@@ -7,6 +7,7 @@ import Product from "@/component/home/Product";
 import ProductCategory from "@/component/home/ProductCatery";
 import { IProduct } from "@/models/Product";
 import { ICategoryProps } from "@/types";
+import { Mail, MessageCircle } from "lucide-react";
 import {  GetServerSideProps } from "next";
 
 
@@ -25,6 +26,9 @@ export default function Home({ products, productCategory }: HomeProps) {
       <ProductCategory productCategory={productCategory} />
       <article className="bg-gray-50 pb-6">
         <section className="flex flex-col items-center justify-center text-center bg-green-800 rounded-md lg:py-24 py-12 lg:mx-25 mx-0">
+          <div className="p-3 bg-[#01976D] rounded-full animate-bounce mb-12 hover:animate-pulse transition duration-700 ease-in-out">
+            <Mail color="white"size={40} />
+          </div>
          <h1 className="text-[35px] pb-6 text-white font-semibold">Contact Us</h1>
         <ContactForm />
           <h2 className="text-[35px] text-white font-bold mt-8">

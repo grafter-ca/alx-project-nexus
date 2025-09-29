@@ -1,16 +1,13 @@
 "use client";
 
-import { useState } from "react";
 import SubscribeForm from "@/component/common/SubscribeForm";
 import Hero from "@/component/home/Hero";
 import Product from "@/component/home/Product";
 import ProductCategory from "@/component/home/ProductCatery";
 import { IProduct } from "@/models/Product";
 import { ICategoryProps } from "@/types";
-import { GetServerSideProps } from "next";
-import Modal from "@/component/common/Modal";
-import LoginForm from "@/component/common/LoginForm";
-import RegisterForm from "@/component/common/RegisterForm";
+import {  GetServerSideProps } from "next";
+
 
 interface HomeProps {
   products: IProduct[];
@@ -48,7 +45,7 @@ export default function Home({ products, productCategory }: HomeProps) {
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
     const productRes = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/products`
+      `${process.env.NEXT_PUBLIC_BASE_URL || process.env.BASE_URL || "http://localhost:3000"}/api/products`
     );
 
     if (!productRes.ok) {

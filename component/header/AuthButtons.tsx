@@ -17,7 +17,7 @@ export default function AuthButtons({ openLogin, openRegister }: { openLogin: ()
   if (isLoggedIn && user) {
     return (
       <div className="flex items-center space-x-4">
-        <p className="capitalize">{user.firstName || "guest"}</p>
+        <p className="capitalize">{(user[0]?.firstName) || "guest"}</p>
         <button
           onClick={() => {
             dispatch(logout());

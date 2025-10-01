@@ -19,11 +19,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const productCount = await Product.countDocuments();
         const orderCount = await Order.countDocuments();
 
-        return res.status(200).json({ 
+        return res.status(200).json({ message:"Dashboard information created",
+            data:{
             categoryCount: categoryCount, 
             userCount: userCount, 
             productCount: productCount, 
             orderCount: orderCount, 
+        }
         });
     }
     if (method !== "GET"){

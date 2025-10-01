@@ -1,19 +1,12 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
 import { AppDispatch } from "@/redux/store";
+import { IUser,IUserState } from "@/types";
 
-export interface IUserState {
-  user: null | any;
-  token: string | null;
-  role: "admin" | "guest" | "client";
-  loading: boolean;
-  error: string | null;
-  isLoggedIn: boolean;
-  status: "active" | "inactive" | "block" | "unblock";
-}
+
 
 const initialState: IUserState = {
-  user: null,
+  user: [],
   token: Cookies.get("token") || null,
   isLoggedIn: Boolean(Cookies.get("token")),
   loading: false,
@@ -22,9 +15,14 @@ const initialState: IUserState = {
   status: "inactive",
 };
 
-// ✅ Async register action
+interface AuthResponse {
+  user: IUser;
+  token: string;
+  message:string;
+}
+
 export const registerUser = createAsyncThunk<
-  any,
+  AuthResponse,
   { firstName: string; lastName: string; email: string; password: string },
   { dispatch: AppDispatch }
 >("user/register", async (formData, thunkAPI) => {
@@ -38,9 +36,8 @@ export const registerUser = createAsyncThunk<
 
     if (!res.ok) throw new Error("Registration failed");
 
-    const data = await res.json();
+    const data: AuthResponse = await res.json();
 
-    // ✅ Save token consistently
     Cookies.set("token", data.token, { expires: 1 });
     localStorage.setItem("user", JSON.stringify(data.user));
     localStorage.setItem("token", data.token);
@@ -52,7 +49,7 @@ export const registerUser = createAsyncThunk<
 });
 
 export const loginUser = createAsyncThunk<
-  any,
+  AuthResponse,
   { email: string; password: string },
   { dispatch: AppDispatch }
 >("user/login", async ({ email, password }, thunkAPI) => {
@@ -64,8 +61,7 @@ export const loginUser = createAsyncThunk<
       credentials: "include",
     });
 
-    const data = await res.json();
-    console.log("Login response:", data, res.status);
+    const data:AuthResponse = await res.json();
 
     if (!res.ok) throw new Error(data.message || "Login failed");
 
@@ -85,7 +81,6 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    // 🔹 Restore state from storage
     loadUserFromStorage: (state) => {
       const token = Cookies.get("token") || localStorage.getItem("token");
       const user = localStorage.getItem("user");
@@ -98,7 +93,6 @@ const userSlice = createSlice({
       }
     },
 
-    // 🔹 Logout
     logout: (state) => {
       state.user = null;
       state.token = null;
@@ -109,22 +103,22 @@ const userSlice = createSlice({
       localStorage.removeItem("token");
     },
 
-    // 🔹 Update user
-    updateUser: (state, action) => {
-      state.user = { ...state.user, ...action.payload };
-      localStorage.setItem("user", JSON.stringify(state.user));
+    updateUser: (state, action:PayloadAction<Partial<IUser>>) => {
+      if (state.user) {
+    state.user = { ...state.user, ...action.payload };
+    localStorage.setItem("user", JSON.stringify(state.user));
+  }
     },
   },
   extraReducers: (builder) => {
     builder
-      // LOGIN
       .addCase(loginUser.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload.user;
+        state.user = [action.payload.user];
         state.token = action.payload.token;
         state.role = action.payload.user.role || "client";
         state.isLoggedIn = true;
@@ -135,14 +129,13 @@ const userSlice = createSlice({
         state.isLoggedIn = false;
       })
 
-      // REGISTER
       .addCase(registerUser.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload.user;
+        state.user = [action.payload.user];
         state.token = action.payload.token;
         state.role = action.payload.user.role || "client";
         state.isLoggedIn = true;

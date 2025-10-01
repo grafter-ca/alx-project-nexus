@@ -1,5 +1,5 @@
 
-import { Home, LogOut, ShoppingCart, Truck, User } from "lucide-react";
+import { Home, ShoppingCart, Truck, User } from "lucide-react";
 import { ComponentType } from "react";
 
 export interface navLinkProps{
@@ -9,11 +9,10 @@ export interface navLinkProps{
 }
 
 export const navLinks : navLinkProps[] = [
-  { name: "Home", path: "/dashboard", icon: Home },
-  { name: "Users", path: "/dashboard/user", icon: User },
+  { name: "Dashboard", path: "/dashboard", icon: Home },
+  { name: "Customers", path: "/dashboard/user", icon: User },
   { name: "Products", path: "/dashboard/product", icon: Truck },
   { name: "Orders", path: "/dashboard/order", icon: ShoppingCart },
-  { name: "Logout", path: "/", icon: LogOut },
 ];
 
 export const headerNavlinks = [

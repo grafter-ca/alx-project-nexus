@@ -33,7 +33,7 @@ const ContactForm = () => {
       className="space-y-5 bg-gray-50 p-6 lg:w-1/2 mx-auto border-2 border-gray-200 rounded-xl shadow-md"
     >
       {/* Email */}
-      <div>
+      <div className="flex flex-col items-start">
         <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
           Email
         </label>
@@ -49,7 +49,7 @@ const ContactForm = () => {
       </div>
 
       {/* Subject */}
-      <div>
+      <div className="flex flex-col items-start">
         <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">
           Subject
         </label>
@@ -65,7 +65,7 @@ const ContactForm = () => {
       </div>
 
       {/* Message */}
-      <div>
+      <div className="flex flex-col items-start">
         <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
           Message
         </label>

@@ -11,6 +11,7 @@ import ProductCard from "@/component/product/ProductCard";
 import ProductCardSkeleton from "@/component/common/ProductCardSkeleton";
 import { Plus } from "lucide-react";
 import Link from "next/link";
+import Layout from "@/component/dashboard/Layout";
 
 export default function DashboardProducts() {
   const dispatch: AppDispatch = useDispatch();
@@ -27,6 +28,7 @@ export default function DashboardProducts() {
   };
 
   return (
+    <Layout>
     <div className="p-6">
       <h1 className="text-3xl font-bold mb-6">Product Dashboard</h1>
        
@@ -70,5 +72,6 @@ export default function DashboardProducts() {
 
       {error && <p className="text-red-500 mt-4">{error}</p>}
     </div>
+    </Layout>
   );
 }

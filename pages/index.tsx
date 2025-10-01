@@ -7,7 +7,7 @@ import Product from "@/component/home/Product";
 import ProductCategory from "@/component/home/ProductCatery";
 import { IProduct } from "@/models/Product";
 import { ICategoryProps } from "@/types";
-import { Mail, MessageCircle } from "lucide-react";
+import { Mail} from "lucide-react";
 import {  GetServerSideProps } from "next";
 
 

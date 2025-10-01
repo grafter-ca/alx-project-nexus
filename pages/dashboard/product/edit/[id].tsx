@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/redux/store";
 import { updateProduct } from "@/redux/slices/productSlice";
 import { IProduct } from "@/models/Product";
+import Layout from "@/component/dashboard/Layout";
 
 interface createproductProps {
   name: string;
@@ -132,6 +133,7 @@ export default function EditProduct() {
   if (!product) return <p className="p-6 text-center">Product not found</p>;
 
   return (
+    <Layout>
     <section className="p-6 max-w-4xl mx-auto bg-white shadow-lg rounded-lg">
       <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
         Edit Product
@@ -281,6 +283,7 @@ export default function EditProduct() {
         </div>
       </form>
     </section>
+    </Layout>
   );
 }
 

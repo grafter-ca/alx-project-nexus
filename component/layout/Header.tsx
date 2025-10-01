@@ -121,7 +121,7 @@ function Header() {
       {/* Right Side */}
       <div className="flex items-center text-2xl space-x-6">
         {/* Cart */}
-        {user?.role === "client" && (
+        {Array.isArray(user) && user[0]?.role === "client" && (
           <div
             className="flex items-center relative cursor-pointer"
             onClick={() => router.push("/cart")}
@@ -226,7 +226,7 @@ function Header() {
               />
             </div>
           )}
-           {user?.role === "client" && (
+           {Array.isArray(user) && user[0]?.role === "client" && (
           <div
             className="flex items-center relative cursor-pointer"
             onClick={() => router.push("/cart")}

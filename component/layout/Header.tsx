@@ -52,6 +52,7 @@ function Header() {
   const handleLogout = () => {
     dispatch(logout());
     router.push("/");
+    setIsMobileMenuOpen(false)
   };
 
   // if is componen tmounted return null
@@ -60,7 +61,7 @@ function Header() {
   return (
     <header className="flex items-center justify-between p-4 shadow-md relative">
       {/* Logo */}
-
+       <Link href={'/'}>
       <div
         aria-label="Logo"
         className="flex space-x-3 items-center"
@@ -73,7 +74,7 @@ function Header() {
           ShopCatalog
         </h2>
       </div>
-
+      </Link>
       {/* Desktop Navigation */}
       <div className="hidden lg:flex items-center space-x-6">
         <nav className="flex space-x-8 text-lg xl:text-2xl">
@@ -120,7 +121,7 @@ function Header() {
       {/* Right Side */}
       <div className="flex items-center text-2xl space-x-6">
         {/* Cart */}
-        {user?.role === "client" && (
+        {Array.isArray(user) && user[0]?.role === "client" && (
           <div
             className="flex items-center relative cursor-pointer"
             onClick={() => router.push("/cart")}
@@ -162,6 +163,7 @@ function Header() {
       >
         {/* Header */}
         <div className="flex justify-between items-center p-4 border-b">
+          <Link href={'/'}>
           <div
             aria-label="Logo"
             className="flex space-x-3 items-center"
@@ -175,6 +177,7 @@ function Header() {
               ShopCatalog
             </h2>
           </div>
+          </Link>
           <button
             onClick={() => setIsMobileMenuOpen(false)}
             className="p-2 bg-gray-200 rounded-full hover:rotate-180 hover:text-green-700 transition duration-700 ease-in-out hover:bg-gray-300"
@@ -223,6 +226,22 @@ function Header() {
               />
             </div>
           )}
+           {Array.isArray(user) && user[0]?.role === "client" && (
+          <div
+            className="flex items-center relative cursor-pointer"
+            onClick={() => router.push("/cart")}
+          >
+            <ShoppingCart
+              className="text-gray-500 hover:bg-green-600 hover:text-white rounded-md p-2 transition duration-300"
+              size={40}
+            />
+            {totalItems > 0 && (
+              <span className="absolute top-[-2px] right-4 bg-red-600 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                {totalItems}
+              </span>
+            )}
+          </div>
+        )}
         </nav>
       </div>
 

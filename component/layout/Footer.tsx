@@ -1,7 +1,7 @@
 import { Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
 import Link from "next/link";
 import SubscribeButton from "../common/button/SuscribeButton";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const Footer = () =>  {
 
@@ -121,10 +121,10 @@ const Footer = () =>  {
             </li>
             <li>
               <Link
-                href="/#"
+                href="/contact"
                 className="hover:text-green-500 hover:translate-x-1.5 transition duration-500 ease-in-out"
               >
-                Support
+                Contact
               </Link>
             </li>
             <li>

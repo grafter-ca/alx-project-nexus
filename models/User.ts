@@ -15,7 +15,9 @@ const UserSchema: Schema = new Schema({
   role: { type: String, enum: ["client", "guest", "admin"], default: "guest" },
   createdAt: { type: Date, default: () => dayjs().toDate() },
   updatedAt: { type: Date, default: () => dayjs().toDate() },
-});
+},
+{timestamps: true}
+);
 
 export default mongoose.models.User ||
   mongoose.model<IUser>("User", UserSchema);

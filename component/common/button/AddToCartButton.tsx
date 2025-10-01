@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ShoppingBag, ShoppingCart } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 import { addToCart } from "@/redux/slices/cartSlice";
 import { RootState } from "@/redux/store";
 import { useRouter } from "next/router";
@@ -69,7 +69,6 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({
           onClick={() => router.push("/login")}
           className={`bg-green-700 flex items-center text-white px-4 py-2 rounded-lg hover:bg-green-600 transition ${className}`}
         >
-          <ShoppingBag className="mr-2" size={18} />
           shop Now
         </button>
       )}

@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { IProduct } from "@/models/Product";
+import Layout from "@/component/dashboard/Layout";
 
 interface createproductProps{
       name: string;
@@ -65,6 +66,7 @@ export default function CreateProduct() {
   };
 
   return (
+    <Layout>
     <section className="p-8 max-w-3xl mx-auto bg-white shadow rounded-lg">
       <h1 className="text-3xl font-bold mb-6 text-gray-800">
         Create New Product
@@ -147,5 +149,6 @@ export default function CreateProduct() {
         </button>
       </form>
     </section>
+    </Layout>
   );
 }

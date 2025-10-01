@@ -14,8 +14,10 @@ import Stats from "../common/Stats";
 import Image from "next/image";
 import Button from "../common/button/ButtonWithIconRight";
 import ButtonWithOutIcon from "../common/button/ButtonWithOutIcon";
+import { useRouter } from "next/router";
 
 function Hero() {
+  const router  = useRouter()
   return (
     <section className="flex flex-col lg:flex-row items-center gap-8 px-4 py-6 lg:px-16 mt-12">
       {/* Left Content */}
@@ -39,8 +41,8 @@ function Hero() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start sm:items-center">
-            <Button label="Explore Collection" Icon={MoveRight} />
-            <ButtonWithOutIcon label="Browse by Category" />
+            <Button label="Explore Collection" Icon={MoveRight} onClick={()=> router.push("/product")}/>
+            <ButtonWithOutIcon label="Browse by Category" onClick={()=> router.push("/categories")}/>
           </div>
         </header>
 

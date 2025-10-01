@@ -64,3 +64,8 @@ export interface OrderProduct {
 }
 
 
+export interface contactProps{
+  email:string;
+  subject:string;
+  message:string;
+}

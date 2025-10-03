@@ -12,7 +12,7 @@ const UserSchema: Schema = new Schema({
   firstName: { type: String},
   lastName: { type: String},
   status: { type: String, enum: ["active", "inactive","block","unblock"], default: "active" },
-  role: { type: String, enum: ["client", "guest", "admin"], default: "guest" },
+  role: { type: String, enum: ["client", "admin"], default: "client" },
   createdAt: { type: Date, default: () => dayjs().toDate() },
   updatedAt: { type: Date, default: () => dayjs().toDate() },
 },
